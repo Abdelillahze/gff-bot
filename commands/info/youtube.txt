@@ -1,0 +1,79 @@
+const {
+  SlashCommandBuilder,
+  ChatInputCommandInteraction,
+  Client,
+  EmbedBuilder,
+} = require("discord.js");
+
+module.exports = {
+  data: new SlashCommandBuilder()
+    .setName("ytb")
+    .setDescription("Manage and receive Youtube notification")
+    .addSubcommand((subcommand) => {
+      return subcommand
+        .setName("add")
+        .setDescription("add channel")
+        .addStringOption((options) =>
+          options
+            .setName("link")
+            .setDescription("Youtube Link")
+            .setRequired(true)
+        );
+    })
+    .addSubcommand((subcommand) =>
+      subcommand
+        .setName("remove")
+        .setDescription("remove channel")
+        .addStringOption((options) =>
+          options
+            .setName("link")
+            .setDescription("link of the channel")
+            .setRequired(true)
+        )
+    ),
+  /**
+   * @param {ChatInputCommandInteraction} interaction
+   * @param {Client} client
+   */
+  async execute(interaction, client) {
+    const { options, guildId } = interaction;
+    const sub = options.getSubcommand();
+    const link = options.getString("link");
+    const channel = interaction.channel;
+
+    switch (sub) {
+      case "add": {
+        const data = await client.ytb.setChannel(link, channel);
+
+        console.log(data);
+
+        const embed = new EmbedBuilder()
+          .setColor("#000000")
+          .setDescription(
+            `Succefully added new channel ${
+              data.YTchannel
+            } to ${channel.toString()}`
+          )
+          .setTimestamp();
+
+        return interaction.reply({ embeds: [embed] });
+      }
+      case "remove": {
+        const data = await client.ytb.deleteChannel(guildId, link);
+
+        console.log(data);
+
+        const embed = new EmbedBuilder()
+          .setColor("#000000")
+          .setDescription(
+            `Succefully deleted channel ${
+              data.YTchannel
+            } to ${channel.toString()}`
+          )
+          .setTimestamp();
+
+        return interaction.reply({ embeds: [embed] });
+      }
+    }
+  },
+};
