@@ -47,11 +47,6 @@ module.exports = {
         .setStyle(ButtonStyle.Primary)
     );
 
-<<<<<<< HEAD
-    console.log(data, "#");
-
-=======
->>>>>>> d1dc8c5 (ahla)
     const embed = new EmbedBuilder()
       .setTitle(`${data.name}#${data.tag}`)
       .setThumbnail(data.card.small)

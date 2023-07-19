@@ -48,15 +48,11 @@ module.exports = {
       new ButtonBuilder()
         .setCustomId("drop")
         .setLabel("👁‍🗨")
-<<<<<<< HEAD
-        .setStyle(ButtonStyle.Success)
-=======
         .setStyle(ButtonStyle.Success),
       new ButtonBuilder()
         .setCustomId("delete")
         .setLabel("🗑")
         .setStyle(ButtonStyle.Danger)
->>>>>>> d1dc8c5 (ahla)
     );
 
     if (videos.length === 1) {
@@ -115,14 +111,11 @@ module.exports = {
           components: [],
         });
       }
-<<<<<<< HEAD
-=======
 
       if (i.customId === "delete") {
         return await i.message.delete();
       }
 
->>>>>>> d1dc8c5 (ahla)
       if (i.customId === "backward") {
         counter--;
         const {

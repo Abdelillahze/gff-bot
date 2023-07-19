@@ -3,17 +3,15 @@ const fs = require("fs");
 const { Client, GatewayIntentBits, Events } = require("discord.js");
 require("dotenv").config();
 const client = new Client({
+  partials: ["CHANNEL", "MESSAGE"],
   intents: [
+    GatewayIntentBits.DirectMessages,
+    GatewayIntentBits.DirectMessageTyping,
     GatewayIntentBits.Guilds,
-<<<<<<< HEAD
-    GatewayIntentBits.GuildMessages,
-    GatewayIntentBits.GuildMembers,
-=======
     GatewayIntentBits.GuildMembers,
     GatewayIntentBits.GuildMessages,
     GatewayIntentBits.GuildPresences,
     GatewayIntentBits.MessageContent,
->>>>>>> d1dc8c5 (ahla)
   ],
 });
 
@@ -23,7 +21,7 @@ fs.readdirSync("./handlers").forEach((handler) => {
   require(`./handlers/${handler}`)(client);
 });
 
-// client.on(Events.MessageCreate, () => {
+// client.on(Events.MessageCreate, (message) => {
 //   console.log("ahla");
 // });
 
